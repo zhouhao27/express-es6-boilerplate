@@ -13,7 +13,7 @@ export default function(req, res, next) {
         * The token contains user's id ( it can contain more informations )
         * and this is saved in req.user object
         */
-      req.user = jwt.verify(req.headers['authorization'], config.JWT_SECRET);
+      req.user = jwt.verify(req.headers['authorization'], config.jwtSecret);
     } catch(err) {
       /*
         * If the authorization header is corrupted, it throws exception
