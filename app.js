@@ -1,5 +1,4 @@
 import express from 'express'
-import bodyParser from 'body-parser'
 import apiRouter from './api'
 import config from './config'
 
@@ -9,8 +8,7 @@ setup()
 const server = start()
 
 function setup() {  
-  app.use(bodyParser.json())
-  app.use(bodyParser.urlencoded({ extended: true }))
+  app.use(express.json())
   app.use('/api', apiRouter)
 }
 
