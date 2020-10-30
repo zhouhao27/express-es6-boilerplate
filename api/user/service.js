@@ -4,7 +4,6 @@ import User from './user'
 
 export default class UserService {
   async login(email, password) {
-    console.log(`email=${email} password=${password}`)
     if (!email || !password) {
       throw new Error('Please provide email and password!')
     }
@@ -15,7 +14,7 @@ export default class UserService {
       throw new Error('Incorrect email or password', 401)
     }
 
-    console.log('Login success')
+    console.log(info(`${email} login success`))
     return {
       token: jwt.sign({
         id: user.id,

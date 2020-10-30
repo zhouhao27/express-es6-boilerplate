@@ -8,5 +8,4 @@
 
 # TODO
 
-- Chalk
 - Socket.io code in another file

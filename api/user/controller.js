@@ -80,7 +80,7 @@ userRouter
     if (user) {      
       return res.json(user)  
     }
-    return res.status(401).send('Failed to register')    
+    return res.status(401).send('Failed to register')   
   })
   /**
    * @swagger
