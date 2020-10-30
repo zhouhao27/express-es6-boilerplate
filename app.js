@@ -9,6 +9,7 @@ const app = express()
 const setup = () => {  
   app.use(compression())
   app.use(express.json())
+  app.use('/', express.static('public'));
   app.use('/api', apiRouter)
 }
 
