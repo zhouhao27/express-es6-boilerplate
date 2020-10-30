@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import validator from 'validator'
+import bcrypt from 'bcryptjs'
 
 /**
  * @swagger
@@ -49,4 +50,15 @@ const userSchema = new mongoose.Schema({
   },
 })
 
+// TODO: Can't use arrow function here because of `this` keyword
+userSchema.pre('save', async function(next) {
+  if (!this.isModified('password')) return next()
+
+  // hash the password with cost of 12
+  this.password = await bcrypt.hash(this.password, 12)
+
+  // no need this anymore, this will not save passwordConfirm field to database
+  this.passwordConfirm = undefined
+  next()
+})
 export default mongoose.model('User', userSchema)

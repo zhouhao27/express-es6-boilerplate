@@ -7,6 +7,7 @@
     "dev": "(yarn db) & (nodemon server.js --exec babel-node --presets babel-preset-env)"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
     "dotenv": "^8.2.0",
     "express": "~4.16.1",
