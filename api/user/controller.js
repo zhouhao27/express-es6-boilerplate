@@ -37,10 +37,14 @@ userRouter
    *          description: "Wrong username or password!"
    */
   .post('/login', async (req, res) => {
-    const userParams = req.body
-    const service = new UserService()
-    const user = await service.login(userParams)
-    return res.json(user)
+    const { email, password } = req.body
+    try {
+      const service = new UserService()
+      const user = await service.login(email, password)
+      return res.json(user)  
+    } catch(err) {
+      return res.status(401).send(`${err}`)
+    }
   })
   /**
    * @swagger
