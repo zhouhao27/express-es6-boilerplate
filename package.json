@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "db": "mongod --dbpath ./data",
+    "db": "mongod --dbpath ./.data",
     "dev": "(yarn db) & (nodemon server.js --exec babel-node --presets babel-preset-env)"
   },
   "dependencies": {
