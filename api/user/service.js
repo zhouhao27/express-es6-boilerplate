@@ -1,15 +1,15 @@
 import jwt from 'jsonwebtoken'
 import config from '../../config'
+import User from './user'
 
 export default class UserService {
   async login(userParam) {
-    if (userParam.username === 'admin' && userParam.password === 'admin') {
-      console.log('login success...')
+    if (userParam.email === 'user@example.com' && userParam.password === 'password') {      
       return { 
         id: 1,
-        username: userParam.username,
+        email: userParam.email,
         jwt: jwt.sign({
-          id: userParam.username,
+          id: userParam.email,
         }, config.jwtSecret, {
           expiresIn: 60 * 60
         })
@@ -26,24 +26,11 @@ export default class UserService {
   }
 
   async register(userParam) {
-    if (userParam.username === 'admin' && userParam.password === 'admin') {
-      console.log('login success...')
-      return { 
-        id: 1,
-        username: userParam.username,
-        jwt: jwt.sign({
-          id: userParam.username,
-        }, config.jwtSecret, {
-          expiresIn: 60 * 60
-        })
-      }
-    } else {      
-      // TODO:
-      // res.status(401).json({
-      //   error: {
-      //     message: 'Wrong username or password!'
-      //   }
-      // });
+    try {
+      const newUser = await User.create(userParam)
+      return newUser  
+    } catch(err) {
+      console.error(err)
       return null
     }
   }

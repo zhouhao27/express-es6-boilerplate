@@ -3,18 +3,6 @@ import UserService from './service'
 
 const userRouter = express.Router()
 
-/**
- * @swagger
- * definitions:
- *  User:
- *    type: "object"
- *    properties:
- *      username: 
- *        type: "string"
- *      password:
- *        type: "string"
- */ 
-
 userRouter
   /**
    * @swagger
@@ -35,7 +23,13 @@ userRouter
    *        description: "User object that needs to be added. Include username,password"
    *        required: true
    *        schema:
-   *          $ref: "#/definitions/User"
+   *          type: "object"
+   *          properties:
+   *            email:
+   *              type: "string"
+   *              format: "email"
+   *            password:
+   *              type: "string"
    *      responses:
    *        200:
    *          description: "successful operation"
@@ -54,7 +48,7 @@ userRouter
    *    post:
    *      tags:
    *      - "user"
-   *      summary: "Register"
+   *      summary: "Create a new user"
    *      description: ""
    *      operationId: "register"
    *      consumes:
@@ -64,7 +58,7 @@ userRouter
    *      parameters:
    *      - in: "body"
    *        name: "body"
-   *        description: "User object that needs to be added. Include username,password"
+   *        description: "Signup"
    *        required: true
    *        schema:
    *          $ref: "#/definitions/User"
@@ -75,10 +69,14 @@ userRouter
    *          description: "Wrong username or password!"
    */
   .post('/register', async (req, res) => {
+    // TODO: Better error handling
     const userParams = req.body
     const service = new UserService()
     const user = await service.register(userParams)
-    return res.json(user)
+    if (user) {      
+      return res.json(user)  
+    }
+    return res.status(401).send('Failed to register')    
   })
   /**
    * @swagger
